@@ -81,13 +81,25 @@ class mergeDatasets extends baseModal {
             modalType: "two",
             splitProcessing:false,
             RCode: `
-require(dplyr)
-by.var <- "{{selected.by | safe}}"
-byDiffNames.var <- "{{selected.byDiffNames | safe}}"
-by.text <- ifelse(by.var != "", by.var, ifelse(byDiffNames.var != "", byDiffNames.var, "NULL"))
-{{selected.out | safe}} <- eval(parse(text = paste( "{{selected.mergetype | safe}}","(",{{selected.in1 | safe}},",",{{selected.in2 | safe}},",","by = c(",by.text,"),","{{selected.suffix | safe}}",")")))
+
+
+#require(dplyr)
+#by.var <- "{{selected.by | safe}}"
+#byDiffNames.var <- "{{selected.byDiffNames | safe}}"
+#by.text <- ifelse(by.var != "", by.var, ifelse(byDiffNames.var != "", byDiffNames.var, "NULL"))
+#{{selected.out | safe}} <- eval(parse(text = paste( "{{selected.mergetype | safe}}","(",{{selected.in1 | safe}},",",{{selected.in2 | safe}},",","by = c(",by.text,"),","{{selected.suffix | safe}}",")")))
+#cat("Warnings regarding differing attributes between merging variables can be safely ignored.")
+#BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
+
+#New
+{{selected.out | safe}} <- {{selected.mergetype | safe}}(
+    {{selected.in1 | safe}},
+    {{selected.in2 | safe}},
+    {{ if(options.selected.by != "c('')")}}by = {{selected.by | safe}},\n{{/if}} {{ if(options.selected.byDiffNames != "")}} by = c({{selected.byDiffNames | safe}}),\n{{/if}}
+    {{if(options.selected.suffix != "")}}suffix = {{selected.suffix | safe}}{{/if}}
+  \n)
 cat("Warnings regarding differing attributes between merging variables can be safely ignored.")
-BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
+BSkyLoadRefreshDataframe("{{selected.out | safe}}")
 
 `,
         }
@@ -109,7 +121,8 @@ BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
                     label: localization.en.in1,
                     no: "in1",
                     filter: "Dataset",
-                    extraction: "UseComma|Enclosed",
+                    //extraction: "UseComma|Enclosed",
+                    extraction: "UseComma",
                     required: true,
                 })
             },
@@ -118,7 +131,8 @@ BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
                     label: localization.en.in2,
                     no: "in2",
                     filter: "Dataset",
-                    extraction: "UseComma|Enclosed",
+                    //extraction: "UseComma|Enclosed",
+                    extraction: "UseComma",
                     required: true,
                 })
             },
@@ -153,7 +167,9 @@ BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
                     label: localization.en.by,
                     placeholder: "",
                     allow_spaces:true,
-                    extraction: "TextAsIs",
+                    //extraction: "TextAsIs",
+                    //extraction: "CreateArray",
+                    extraction: "CreateArray",
                     type: "character",
                     value: "",
                 }),
