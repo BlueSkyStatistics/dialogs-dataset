@@ -81,16 +81,6 @@ class mergeDatasets extends baseModal {
             modalType: "two",
             splitProcessing:false,
             RCode: `
-
-
-#require(dplyr)
-#by.var <- "{{selected.by | safe}}"
-#byDiffNames.var <- "{{selected.byDiffNames | safe}}"
-#by.text <- ifelse(by.var != "", by.var, ifelse(byDiffNames.var != "", byDiffNames.var, "NULL"))
-#{{selected.out | safe}} <- eval(parse(text = paste( "{{selected.mergetype | safe}}","(",{{selected.in1 | safe}},",",{{selected.in2 | safe}},",","by = c(",by.text,"),","{{selected.suffix | safe}}",")")))
-#cat("Warnings regarding differing attributes between merging variables can be safely ignored.")
-#BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
-
 #New
 {{selected.out | safe}} <- {{selected.mergetype | safe}}(
     {{selected.in1 | safe}},
