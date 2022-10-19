@@ -111,7 +111,6 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     label: localization.en.in1,
                     no: "in1",
                     filter: "Dataset",
-                    //extraction: "UseComma|Enclosed",
                     extraction: "UseComma",
                     required: true,
                 })
@@ -121,7 +120,6 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     label: localization.en.in2,
                     no: "in2",
                     filter: "Dataset",
-                    //extraction: "UseComma|Enclosed",
                     extraction: "UseComma",
                     required: true,
                 })
@@ -157,8 +155,6 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     label: localization.en.by,
                     placeholder: "",
                     allow_spaces:true,
-                    //extraction: "TextAsIs",
-                    //extraction: "CreateArray",
                     extraction: "CreateArray",
                     type: "character",
                     value: "",
