@@ -17,6 +17,7 @@ const nav = {
             "icon": "icon-merge_right",
             "children": [
                 "./mergeDatasets",
+              "./mergeDatasetsNew",
                 "./stackDatasets"
                ]
         },
