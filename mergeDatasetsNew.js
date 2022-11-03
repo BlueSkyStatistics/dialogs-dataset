@@ -35,7 +35,13 @@ var localization = {
             r_help: "help(join, package=dplyr)",
             body: `
             <b>Description</b></br>
-            Merge datasets will help you join 2 datasets together. By default, this dialog will look for common variable names within the 2 datasets and merge on the full set of common variables.<br/> If you would like to merge on a specific set of variables, you can specify those in the Advanced menu.<br/>
+            Merge datasets will help you join 2 datasets. You need to define a join mapping by mapping the variables in the active dataset to the variables in the 
+selected dataset that you want to join on. 
+If you would like to merge on a specific set of variables, you can specify those in the Advanced menu.
+inner_join: return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned.
+left_join: return all rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.
+right_join: return all rows from y, and all columns from x and y. Rows in y with no match in x will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.
+full_join: return all rows and all columns from both x and y. Where there are not matching values, returns NA for the one missing.</br>
             inner_join: return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned.</br>
             left_join: return all rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.</br>
             right_join: return all rows from y, and all columns from x and y. Rows in y with no match in x will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.</br>
@@ -81,15 +87,12 @@ class mergeDatasetsNew extends baseModal {
             modalType: "two",
             splitProcessing:false,
             RCode: `
-#New
 {{selected.out | safe}} <- {{selected.mergetype | safe}}(
-    {{selected.in1 | safe}},
-    {{selected.in2 | safe}},
-    {{ if(options.selected.by != "c('')")}}by = {{selected.by | safe}},\n{{/if}} {{ if(options.selected.byDiffNames != "")}} by = c({{selected.byDiffNames | safe}}),\n{{/if}}
-    {{if(options.selected.suffix != "")}}suffix = {{selected.suffix | safe}}{{/if}}
-    {{selected.join | safe}}
-  \n)
-cat("Warnings regarding differing attributes between merging variables can be safely ignored.")
+    {{dataset.name}},
+    {{selected.select12 | safe}},
+    c({{selected.join | safe}})
+    {{if(options.selected.suffix != "")}}, suffix = {{selected.suffix | safe}}{{/if}}
+    \n)
 BSkyLoadRefreshDataframe("{{selected.out | safe}}")
 
 `,
@@ -108,8 +111,9 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
              join: {
                 el: new mergeJoin(config, {
                     no: 'join',
-                    label: localization.en.selectAPackage,
+                    label: "Join mapping",
                     multiple: false,
+                    required:true,
                     extraction: "NoPrefix|UseComma",
                     options: [],
                     default: "", 
@@ -139,73 +143,25 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
             fulljoin: {
                 el: new radioButton(config, { label: localization.en.fulljoin, no: "mergetype", increment: "fulljoin", value: "full_join", state: "", extraction: "ValueAsIs" })
             },
-            id: {
-                el: new input(config, {
-                    no: 'id',
-                    label: localization.en.id,
-                    placeholder: "",
-                    allow_spaces:true,
-                    extraction: "TextAsIs",
-                    type: "character",
-                    value: "",
-                }),
-            },
-            label2: { el: new labelVar(config, { label: localization.en.label2, h: 5, style: "mt-2", }) },
-            by: {
-                el: new input(config, {
-                    no: 'by',
-                    label: localization.en.by,
-                    placeholder: "",
-                    allow_spaces:true,
-                    extraction: "CreateArray",
-                    type: "character",
-                    value: "",
-                }),
-            },
-            label3: { el: new labelVar(config, { label: localization.en.label3, h: 5, style: "mt-2", }) },
-            byDiffNames: {
-                el: new input(config, {
-                    no: 'byDiffNames',
-                    allow_spaces:true,
-                    label: localization.en.byDiffNames,
-                    placeholder: "",
-                    extraction: "TextAsIs",
-                    type: "character",
-                    value: "",
-                }),
-            },
-            label4: { el: new labelVar(config, { label: localization.en.label4, h: 5, style: "mt-2", }) },
             suffix: {
                 el: new input(config, {
                     no: 'suffix',
+                    style: "mt-3",
                     label: localization.en.suffix,
                     placeholder: "",
                     allow_spaces:true,
                     extraction: "CreateArray",
                     type: "character",
                     value: ".x,.y",
-                }),
+                })
             },
         }
-        var advOptions = {
-            el: new optionsVar(config, {
-                no: "advOptions",
-                name: localization.en.advOptions,
-                content: [
-                    objects.label2.el,
-                    objects.by.el,
-                    objects.label3.el,
-                    objects.byDiffNames.el,
-                    objects.label4.el,
-                    objects.suffix.el,
-                ]
-            })
-        };
+        
         const content = {
             head: [],
            left: [  objects.select12.el.content],
-            right: [objects.out.el.content, objects.join.el.content, objects.label1.el.content, objects.leftjoin.el.content, objects.rightjoin.el.content, objects.innerjoin.el.content, objects.fulljoin.el.content],
-            bottom: [advOptions.el.content],
+            right: [objects.out.el.content, objects.join.el.content, objects.label1.el.content, objects.leftjoin.el.content, objects.rightjoin.el.content, objects.innerjoin.el.content, objects.fulljoin.el.content, objects.suffix.el.content],
+           
             nav: {
                 name: localization.en.navigation,
                 icon: "icon-merge_right",
