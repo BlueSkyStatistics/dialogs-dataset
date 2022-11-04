@@ -13,7 +13,8 @@
 var localization = {
     en: {
         title: "Merge Datasets",
-        navigation: "Merge New",
+        join: "Join mapping",
+        navigation: "Merge",
         description: `Merge datasets will help you join 2 datasets together. By default, this dialog will look for common variable names within the 2 datasets and merge on the full set of common variables.`,
         out: "Enter the name of the merged dataset",
         in1: "Select the 1st dataset",
@@ -35,7 +36,8 @@ var localization = {
             r_help: "help(join, package=dplyr)",
             body: `
             <b>Description</b></br>
-            Merge datasets will help you join 2 datasets together. By default, this dialog will look for common variable names within the 2 datasets and merge on the full set of common variables.<br/> If you would like to merge on a specific set of variables, you can specify those in the Advanced menu.<br/>
+            Merge datasets will help you join 2 datasets together.<br/>You need to specify one or more variables in the active dataset and in the selected target dataset that you want the join to be performed on.<br/>
+            The results will be saved in a new dataset.<br/>
             inner_join: return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned.</br>
             left_join: return all rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.</br>
             right_join: return all rows from y, and all columns from x and y. Rows in y with no match in x will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.</br>
@@ -81,17 +83,13 @@ class mergeDatasetsNew extends baseModal {
             modalType: "two",
             splitProcessing:false,
             RCode: `
-#New
 {{selected.out | safe}} <- {{selected.mergetype | safe}}(
-    {{selected.in1 | safe}},
-    {{selected.in2 | safe}},
-    {{ if(options.selected.by != "c('')")}}by = {{selected.by | safe}},\n{{/if}} {{ if(options.selected.byDiffNames != "")}} by = c({{selected.byDiffNames | safe}}),\n{{/if}}
+    {{dataset.name}},
+    {{selected.select12 | safe}},
+    {{selected.join | safe}},
     {{if(options.selected.suffix != "")}}suffix = {{selected.suffix | safe}}{{/if}}
-    {{selected.join | safe}}
-  \n)
-cat("Warnings regarding differing attributes between merging variables can be safely ignored.")
+    )
 BSkyLoadRefreshDataframe("{{selected.out | safe}}")
-
 `,
         }
         var objects = {
@@ -108,8 +106,9 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
              join: {
                 el: new mergeJoin(config, {
                     no: 'join',
-                    label: localization.en.selectAPackage,
+                    label: localization.en.join,
                     multiple: false,
+                    required:true,
                     extraction: "NoPrefix|UseComma",
                     options: [],
                     default: "", 
@@ -119,6 +118,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                 el: new input(config, {
                     no: 'out',
                     label: localization.en.out,
+                    overwrite: "dataset",
                     placeholder: "",
                     extraction: "TextAsIs",
                     value: "",
@@ -150,36 +150,12 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     value: "",
                 }),
             },
-            label2: { el: new labelVar(config, { label: localization.en.label2, h: 5, style: "mt-2", }) },
-            by: {
-                el: new input(config, {
-                    no: 'by',
-                    label: localization.en.by,
-                    placeholder: "",
-                    allow_spaces:true,
-                    extraction: "CreateArray",
-                    type: "character",
-                    value: "",
-                }),
-            },
-            label3: { el: new labelVar(config, { label: localization.en.label3, h: 5, style: "mt-2", }) },
-            byDiffNames: {
-                el: new input(config, {
-                    no: 'byDiffNames',
-                    allow_spaces:true,
-                    label: localization.en.byDiffNames,
-                    placeholder: "",
-                    extraction: "TextAsIs",
-                    type: "character",
-                    value: "",
-                }),
-            },
-            label4: { el: new labelVar(config, { label: localization.en.label4, h: 5, style: "mt-2", }) },
             suffix: {
                 el: new input(config, {
                     no: 'suffix',
                     label: localization.en.suffix,
                     placeholder: "",
+                    style: "mt-3",
                     allow_spaces:true,
                     extraction: "CreateArray",
                     type: "character",
@@ -187,25 +163,12 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                 }),
             },
         }
-        var advOptions = {
-            el: new optionsVar(config, {
-                no: "advOptions",
-                name: localization.en.advOptions,
-                content: [
-                    objects.label2.el,
-                    objects.by.el,
-                    objects.label3.el,
-                    objects.byDiffNames.el,
-                    objects.label4.el,
-                    objects.suffix.el,
-                ]
-            })
-        };
+       
         const content = {
             head: [],
            left: [  objects.select12.el.content],
-            right: [objects.out.el.content, objects.join.el.content, objects.label1.el.content, objects.leftjoin.el.content, objects.rightjoin.el.content, objects.innerjoin.el.content, objects.fulljoin.el.content],
-            bottom: [advOptions.el.content],
+            right: [objects.out.el.content, objects.join.el.content, objects.label1.el.content, objects.leftjoin.el.content, objects.rightjoin.el.content, objects.innerjoin.el.content, objects.fulljoin.el.content, objects.suffix.el.content],
+           
             nav: {
                 name: localization.en.navigation,
                 icon: "icon-merge_right",
