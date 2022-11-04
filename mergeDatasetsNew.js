@@ -13,7 +13,8 @@
 var localization = {
     en: {
         title: "Merge Datasets",
-        navigation: "Merge New",
+        join: "Join mapping",
+        navigation: "Merge",
         description: `Merge datasets will help you join 2 datasets together. By default, this dialog will look for common variable names within the 2 datasets and merge on the full set of common variables.`,
         out: "Enter the name of the merged dataset",
         in1: "Select the 1st dataset",
@@ -35,13 +36,8 @@ var localization = {
             r_help: "help(join, package=dplyr)",
             body: `
             <b>Description</b></br>
-            Merge datasets will help you join 2 datasets. You need to define a join mapping by mapping the variables in the active dataset to the variables in the 
-selected dataset that you want to join on. 
-If you would like to merge on a specific set of variables, you can specify those in the Advanced menu.
-inner_join: return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned.
-left_join: return all rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.
-right_join: return all rows from y, and all columns from x and y. Rows in y with no match in x will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.
-full_join: return all rows and all columns from both x and y. Where there are not matching values, returns NA for the one missing.</br>
+            Merge datasets will help you join 2 datasets together.<br/>You need to specify one or more variables in the active dataset and in the selected target dataset that you want the join to be performed on.<br/>
+            The results will be saved in a new dataset.<br/>
             inner_join: return all rows from x where there are matching values in y, and all columns from x and y. If there are multiple matches between x and y, all combination of the matches are returned.</br>
             left_join: return all rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.</br>
             right_join: return all rows from y, and all columns from x and y. Rows in y with no match in x will have NA values in the new columns. If there are multiple matches between x and y, all combinations of the matches are returned.</br>
@@ -90,11 +86,10 @@ class mergeDatasetsNew extends baseModal {
 {{selected.out | safe}} <- {{selected.mergetype | safe}}(
     {{dataset.name}},
     {{selected.select12 | safe}},
-    c({{selected.join | safe}})
-    {{if(options.selected.suffix != "")}}, suffix = {{selected.suffix | safe}}{{/if}}
-    \n)
+    {{selected.join | safe}},
+    {{if(options.selected.suffix != "")}}suffix = {{selected.suffix | safe}}{{/if}}
+    )
 BSkyLoadRefreshDataframe("{{selected.out | safe}}")
-
 `,
         }
         var objects = {
@@ -111,7 +106,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
              join: {
                 el: new mergeJoin(config, {
                     no: 'join',
-                    label: "Join mapping",
+                    label: localization.en.join,
                     multiple: false,
                     required:true,
                     extraction: "NoPrefix|UseComma",
@@ -123,6 +118,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                 el: new input(config, {
                     no: 'out',
                     label: localization.en.out,
+                    overwrite: "dataset",
                     placeholder: "",
                     extraction: "TextAsIs",
                     value: "",
@@ -149,6 +145,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     style: "mt-3",
                     label: localization.en.suffix,
                     placeholder: "",
+                    style: "mt-3",
                     allow_spaces:true,
                     extraction: "CreateArray",
                     type: "character",

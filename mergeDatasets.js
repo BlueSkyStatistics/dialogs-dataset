@@ -13,7 +13,7 @@
 var localization = {
     en: {
         title: "Merge Datasets",
-        navigation: "Merge",
+        navigation: "Merge(legacy)",
         description: `Merge datasets will help you join 2 datasets together. By default, this dialog will look for common variable names within the 2 datasets and merge on the full set of common variables.`,
         out: "Enter the name of the merged dataset",
         in1: "Select the 1st dataset",
@@ -81,7 +81,6 @@ class mergeDatasets extends baseModal {
             modalType: "two",
             splitProcessing:false,
             RCode: `
-#New
 {{selected.out | safe}} <- {{selected.mergetype | safe}}(
     {{selected.in1 | safe}},
     {{selected.in2 | safe}},
