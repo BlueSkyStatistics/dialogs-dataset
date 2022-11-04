@@ -139,20 +139,10 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
             fulljoin: {
                 el: new radioButton(config, { label: localization.en.fulljoin, no: "mergetype", increment: "fulljoin", value: "full_join", state: "", extraction: "ValueAsIs" })
             },
-            id: {
-                el: new input(config, {
-                    no: 'id',
-                    label: localization.en.id,
-                    placeholder: "",
-                    allow_spaces:true,
-                    extraction: "TextAsIs",
-                    type: "character",
-                    value: "",
-                }),
-            },
             suffix: {
                 el: new input(config, {
                     no: 'suffix',
+                    style: "mt-3",
                     label: localization.en.suffix,
                     placeholder: "",
                     style: "mt-3",
@@ -160,10 +150,10 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     extraction: "CreateArray",
                     type: "character",
                     value: ".x,.y",
-                }),
+                })
             },
         }
-       
+        
         const content = {
             head: [],
            left: [  objects.select12.el.content],
