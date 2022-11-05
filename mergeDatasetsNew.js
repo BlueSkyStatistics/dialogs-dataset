@@ -86,7 +86,7 @@ class mergeDatasetsNew extends baseModal {
 {{selected.out | safe}} <- {{selected.mergetype | safe}}(
     {{dataset.name}},
     {{selected.select12 | safe}},
-    {{selected.join | safe}},
+    c({{selected.join | safe}}),
     {{if(options.selected.suffix != "")}}suffix = {{selected.suffix | safe}}{{/if}}
     )
 BSkyLoadRefreshDataframe("{{selected.out | safe}}")
