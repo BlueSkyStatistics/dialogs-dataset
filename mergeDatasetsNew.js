@@ -20,12 +20,12 @@ var localization = {
         in1: "Select the 1st dataset",
         in2: "Select the 2nd dataset",
         label1: "Merge Options",
-        leftjoin: "Left Join (Keep only rows in first dataset)",
-        rightjoin: "Right Join (Keep only rows in second dataset)",
+        leftjoin: "Left Join (Keep only rows in first (left) dataset)",
+        rightjoin: "Right Join (Keep only rows in second (right) dataset)",
         innerjoin: "Inner Join (Keep rows common to both datasets)",
         fulljoin: "Full Join (Keep all rows in either dataset)",
-        semijoin: "Semi Join (Keep all rows in first dataset with a match in second dataset)",
-        antijoin: "Anti Join (Keep all rows in first dataset without a match in second dataset)",
+        semijoin: "Semi Join (Keep all rows in first (left) dataset with a match in second (right) dataset)",
+        antijoin: "Anti Join (Keep all rows in first (left) dataset without a match in second (right) dataset)",
         label2: "Override the merge being performed on all common column names",
         by: "To override the default setting of the merge being performed on all common column names, enter a subset  of the common column names below seperated by ,  For e.g. country,region  The merge will be performed only on the common column names entered. Format this list as values separated by a comma, e.g., A,B,C",
         label3: "If columns names on which the merge is done are different in each dataset",
@@ -134,22 +134,22 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
             },    
             label1: { el: new labelVar(config, { label: localization.en.label1, h: 5, style: "mt-1", }) },
             leftjoin: {
-                el: new radioButton(config, { label: localization.en.leftjoin, no: "mergetype", increment: "leftjoin", value: "left_join", state: "checked", extraction: "ValueAsIs" })
+                el: new radioButton(config, { label: localization.en.leftjoin, no: "mergetype", increment: "leftjoin", value: "dplyr::left_join", state: "checked", extraction: "ValueAsIs" })
             },
             rightjoin: {
-                el: new radioButton(config, { label: localization.en.rightjoin, no: "mergetype", increment: "rightjoin", value: "right_join", state: "", extraction: "ValueAsIs" })
+                el: new radioButton(config, { label: localization.en.rightjoin, no: "mergetype", increment: "rightjoin", value: "dplyr::right_join", state: "", extraction: "ValueAsIs" })
             },
             innerjoin: {
-                el: new radioButton(config, { label: localization.en.innerjoin, no: "mergetype", increment: "innerjoin", value: "inner_join", state: "", extraction: "ValueAsIs" })
+                el: new radioButton(config, { label: localization.en.innerjoin, no: "mergetype", increment: "innerjoin", value: "dplyr::inner_join", state: "", extraction: "ValueAsIs" })
             },
             fulljoin: {
-                el: new radioButton(config, { label: localization.en.fulljoin, no: "mergetype", increment: "fulljoin", value: "full_join", state: "", extraction: "ValueAsIs" })
+                el: new radioButton(config, { label: localization.en.fulljoin, no: "mergetype", increment: "fulljoin", value: "dplyr::full_join", state: "", extraction: "ValueAsIs" })
             },
             semijoin: {
-                el: new radioButton(config, { label: localization.en.semijoin, no: "mergetype", increment: "semijoin", value: "semi_join", state: "", extraction: "ValueAsIs" })
+                el: new radioButton(config, { label: localization.en.semijoin, no: "mergetype", increment: "semijoin", value: "dplyr::semi_join", state: "", extraction: "ValueAsIs" })
             },
             antijoin: {
-                el: new radioButton(config, { label: localization.en.antijoin, no: "mergetype", increment: "antijoin", value: "anti_join", state: "", extraction: "ValueAsIs" })
+                el: new radioButton(config, { label: localization.en.antijoin, no: "mergetype", increment: "antijoin", value: "dplyr::anti_join", state: "", extraction: "ValueAsIs" })
             },
 
             suffix: {
