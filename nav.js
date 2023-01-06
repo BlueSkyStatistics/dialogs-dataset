@@ -3,9 +3,7 @@ const nav = {
     "tab": "Datasets",
     "buttons": [
         "./aggregate.js",
-        "./CompareDatasets",
         "./expandDataByWeights",
-        "./FindDuplicates",
         {
             "name": "Group By",
             "icon": "icon-group",
@@ -54,8 +52,7 @@ const nav = {
             "name": "Subset",
             "icon": "icon-funnel",
             "children": [
-                "./subsetDataset",
-                "./SubsetByPosition"
+                "./subsetDataset"
                ]
         },  		
         {

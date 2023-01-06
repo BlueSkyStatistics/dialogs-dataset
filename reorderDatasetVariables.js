@@ -57,7 +57,7 @@ BSkyLoadRefresh("{{dataset.name}}" )
             items: [objects.rd1.el.content, objects.rd2.el.content,],
             nav: {
                 name: localization.en.navigation,
-                icon: "icon-sort_horizontal",
+                icon: "icon-reorder-variables",
                 modal: config.id
             }
         }
