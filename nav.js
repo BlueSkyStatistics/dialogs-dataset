@@ -8,16 +8,17 @@ const nav = {
             "name": "Group By",
             "icon": "icon-group",
             "children": [
-                "./setSplit.js",
-                "./removeSplit"
+                "./removeSplit",
+                "./setSplit.js"
+                
             ]
         },
         {
             "name": "Merge",
             "icon": "icon-merge_right",
             "children": [
+                "./mergeDatasetsNew",
                 "./mergeDatasets",
-              "./mergeDatasetsNew",
                 "./stackDatasets"
                ]
         },
@@ -25,19 +26,21 @@ const nav = {
             "name": "ReShape",
             "icon": "icon-reshape",
             "children": [
-                "./reshapeLongToWide",
-                "./reshapeWideToLong"
+                "./reshapeWideToLong",
+                "./reshapeLongToWide"
+                
             ]
         },
         {
             "name": "Sampling",
             "icon": "icon-sample",
             "children": [
-                "./sample",
                 "./randomSplit",
-                "./stratifiedSample",
+                "./sample",
+                "./downSample",
                 "./upSample",
-                "./downSample"
+                "./stratifiedSample",
+                
             ]
         },
         {
@@ -59,8 +62,9 @@ const nav = {
             "name": "Transpose",
             "icon": "icon-transpose",
             "children": [
-                "./transposeSelectVariables",
-                "./transposeEntireDataset"
+                "./transposeEntireDataset",
+                "./transposeSelectVariables"
+                
             ]
         }
     ]
