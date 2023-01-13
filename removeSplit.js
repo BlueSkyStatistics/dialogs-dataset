@@ -55,6 +55,7 @@ BSkySetDataFrameSplit(c(),'{{dataset.name}}')
             nav: {
                 name: localization.en.navigation,
                 icon: "icon-switch_off",
+				positionInNav: 0,				
                 modal: config.id
             }
         }

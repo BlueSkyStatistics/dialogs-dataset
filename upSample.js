@@ -2,7 +2,7 @@
 var localization = {
     en: {
         title: "Up Sample",
-        navigation: "Up Sample",
+        navigation: "Sample, Up Sample",
         downsample: "Enter the name of the dataset",
         seed: "Set seed",
         dependent: "Variable to up sample by",
