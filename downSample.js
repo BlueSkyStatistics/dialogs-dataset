@@ -1,7 +1,7 @@
 var localization = {
     en: {
         title: "Down Sample",
-        navigation: "Down Sample",
+        navigation: "Sample, Down Sample",
         description: `Down-Sampling Imbalanced Data. DownSample will randomly sample a data set so that all classes have the same frequency as the minority class`,
         downsample: "Enter the name of the dataset",
         seed: "Set seed",
