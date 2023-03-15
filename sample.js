@@ -70,7 +70,7 @@ require (dplyr)
 {{ if(options.selected.seed != "")}}set.seed({{selected.seed | safe}}){{/if}}
 \n#Either size should not exceed row count in current dataset or replace should be TRUE
 {{if (options.selected.rdgrp =='sampleAPercentage') }} .GlobalEnv\${{selected.grp1 | safe}}{{selected.dsname | safe}}  <- sample_frac({{dataset.name}}, size ={{selected.percentage | safe}}/100 , replace ={{selected.chk2 | safe}}{{if (options.selected.textn !== "")}} , weight = {{selected.textn | safe}} {{/if}})\n{{/if}}
-{{if (options.selected.rdgrp =='sampleNoOfRows') }}.GlobalEnv\${{selected.grp1 | safe}}{{selected.dsname | safe}}  <- sample_n({{dataset.name}}, size ={{selected.size | safe}}, replace ={{selected.chk2 | safe}}{{if (options.selected.textn !== "")}} , weight = {{selected.textn | safe}} {{/if}})\n{{/if}}
+{{if (options.selected.rdgrp =='sampleNoOfRows') }}.GlobalEnv\${{selected.grp1 | safe}}{{selected.dsname | safe}}  <- sample_n({{dataset.name}}, size ={{selected.sizeBSky | safe}}, replace ={{selected.chk2 | safe}}{{if (options.selected.textn !== "")}} , weight = {{selected.textn | safe}} {{/if}})\n{{/if}}
 BSkyLoadRefresh('{{selected.grp1 | safe}}{{selected.dsname | safe}}')
 `
         }
@@ -102,10 +102,10 @@ BSkyLoadRefresh('{{selected.grp1 | safe}}{{selected.dsname | safe}}')
                     extraction: "NoPrefix|UseComma"
                 })
             },
-            rd2: { el: new radioButton(config, { label: localization.en.rd2, no: "rdgrp", required: true, increment: "rd2", value: "sampleNoOfRows", state: "", extraction: "ValueAsIs", dependant_objects: ['size'] }) },
+            rd2: { el: new radioButton(config, { label: localization.en.rd2, no: "rdgrp", required: true, increment: "rd2", value: "sampleNoOfRows", state: "", extraction: "ValueAsIs", dependant_objects: ['sizeBSky'] }) },
             size: {
                 el: new inputSpinner(config, {
-                    no: 'size',
+                    no: 'sizeBSky',
                     label: localization.en.size,
                     min: 1,
                     max: 9999999,
