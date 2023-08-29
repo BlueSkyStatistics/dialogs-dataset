@@ -12,7 +12,7 @@ var localization = {
         distinct: "Select distinct cases",
         chkbox2: "Remove unused factor levels",
         subsetvars: "Select variables to include in subsetted dataset",
-        label12: "Subsetting criteria is applied against each row, see examples below. \n1: Select rows where var 1 is non empty and var2 is empty specify:\n!is.na(var1) & is.na(var2) \n2: Select rows where var1 > 30 and var 2 is Male specify:\nvar1>30 & var2=='Male' \n3: Complex and or criteria specify:\n(var1 !=10 & var2>20) | var3==40 \n4: Pattern match (xxx) or an exact match (abc) specify:\n(grepl(\"xxx\",var1) ==TRUE) | var1==\"abc\" \n5: Match a substring by position specify: substr(var1,2,4) ==\"abc\"",
+        label12: "\n\nSubsetting criteria is applied against each row, see examples below. \n1: Select rows where var 1 is non empty and var2 is empty specify:\n!is.na(var1) & is.na(var2) \n2: Select rows where var1 > 30 and var 2 is Male specify:\nvar1>30 & var2=='Male' \n3: Complex and or criteria specify:\n(var1 !=10 & var2>20) | var3==40 \n4: Pattern match (xxx) or an exact match (abc) specify:\n(grepl(\"xxx\",var1) ==TRUE) | var1==\"abc\" \n5: Match a substring by position specify: substr(var1,2,4) ==\"abc\"",
         subsetexpression: "Enter subsetting criteria.",
         help: {
             title: "Subset Dataset",
@@ -57,16 +57,19 @@ class subsetDataset extends baseModal {
             modalType: "two",
             splitProcessing:false,
             RCode: `
+
+
+
 require (dplyr)
 {{if (options.selected.rd =="#$*BSkyOutputTrue#$*")}}
 #Create the subsetted dataset
-\nBSkyTempObjForSubset <- {{dataset.name}} {{selected.subsetexpression | safe}} {{selected.subsetvars | safe}}{{selected.distinct | safe}}{{selected.chkbox2 | safe }}
+\nBSkyTempObjForSubset <- {{dataset.name}} {{if (options.selected.subsetexpression != "")}}%>%\n\tdplyr::filter({{selected.subsetexpression | safe}}){{/if}} {{selected.subsetvars | safe}}{{selected.distinct | safe}}{{selected.chkbox2 | safe }}
 \n#Convert the results to a dataframe for compatibility with BSkyFormat
 BSkyTempObjForSubset <- as.data.frame(BSkyTempObjForSubset)
 BSkyFormat(BSkyTempObjForSubset, singleTableOutputHeader="Subset Results")
 {{#else}}
 #Creates the subsetted dataset
-{{if (options.selected.newdatasetname !== "")}}{{selected.newdatasetname | safe}}{{#else}}{{selected.rd | safe}}{{/if}} <- {{dataset.name}} {{selected.subsetexpression | safe}} {{selected.subsetvars | safe}}{{selected.distinct | safe}}{{selected.chkbox2 | safe}}
+{{if (options.selected.newdatasetname !== "")}}{{selected.newdatasetname | safe}}{{#else}}{{selected.rd | safe}}{{/if}} <- {{dataset.name}} {{if (options.selected.subsetexpression != "")}}%>%\n\tdplyr::filter({{selected.subsetexpression | safe}}){{/if}} {{selected.subsetvars | safe}}{{selected.distinct | safe}}{{selected.chkbox2 | safe}}
 \n#Refreshes the subsetted dataset in the data grid
 BSkyLoadRefresh({{if (options.selected.newdatasetname !== "")}}'{{selected.newdatasetname | safe}}'{{#else}}'{{selected.rd | safe}}'{{/if}})
 {{/if}}
@@ -128,6 +131,17 @@ if (exists('BSkyTempObjForSubset')) rm(BSkyTempObjForSubset)
                 }), r: ['{{ var | safe}}']
             },
             subsetexpression: {
+                el: new advancedTextBox(config, {
+                    no: 'subsetexpression',
+                    label: localization.en.subsetexpression,
+                    placeholder: "",
+                    extraction: "TextAsIs",
+                    wrapped: '%>%\n\tdplyr::filter(%val%)',
+                    type: "character",
+                    allow_spaces:true
+                })
+            },
+           /*  subsetexpression: {
                 el: new input(config, {
                     no: 'subsetexpression',
                     label: localization.en.subsetexpression,
@@ -138,6 +152,7 @@ if (exists('BSkyTempObjForSubset')) rm(BSkyTempObjForSubset)
                     allow_spaces:true
                 })
             },
+ */
 
             label12: { el: new preVar(config, { no: "label12", label: localization.en.label12, h: 6 }) },
 
