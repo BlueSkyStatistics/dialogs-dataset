@@ -1,5 +1,5 @@
 {
-    "name": "@BlueSkyStatistics/dialogs/dataset",
+    "name": "@BlueSkyStatistics/dialogs/datasets",
     "productName": "BlueSky Statistics Dataset dialogs",
     "description": "Dataset dialogs",
     "group": "dialogs",
@@ -7,13 +7,13 @@
     "subscriptions": ["BASE (Free Forever)"],
     "main": "nav.js",
     "moduleMeta": {
-            "path": "{{locals}}/variables.asar",
+            "path": "{{locals}}/datasets.asar",
             "storage": "firebase",
             "update": "auto",
             "artifactType": "asar",
             "extra": {
                 "sourceType": "release",
-                "remote": "BlueSkyStatistics/dialogs-variables"
+                "remote": "BlueSkyStatistics/dialogs-datasets"
             },
             "removable": true
     },
