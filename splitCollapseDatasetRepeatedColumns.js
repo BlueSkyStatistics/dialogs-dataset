@@ -28,7 +28,7 @@ var localization = {
             This dialog is used to split (into multiple datasets) or collapse (into one long dataset) a datset with repeated set of columns
 			<br/>
 			<br/>
-			To try this, you may use the sample dataset file called multiProcData.xlsx (under Expand_Dataset subdir). 
+			To try this, you may use the sample dataset file called multiProcData.xlsx (under Split_Collapse_Repeated_Columns subdir). 
 			Open the file and choose the multProcess tab with file open menu to open in the data grid 			
 			<br/>
 			<br/>
