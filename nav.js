@@ -15,7 +15,7 @@ const nav = {
         },
         {
             "name": "Matching",
-            "icon": "icon-merge_right",
+            "icon": "icon-paired",
             "children": [
                ]
         },        
