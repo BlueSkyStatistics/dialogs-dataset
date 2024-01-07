@@ -72,8 +72,7 @@ const nav = {
                 "./transposeSelectVariables"
                 
             ]
-        },
-		"./splitCollapseDatasetRepeatedColumns"
+        }
     ]
 }
 
