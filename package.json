@@ -3,7 +3,7 @@
     "productName": "BlueSky Statistics Dataset dialogs",
     "description": "Dataset dialogs",
     "group": "dialogs",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "subscriptions": ["BASE (Free Forever)"],
     "main": "nav.js",
     "moduleMeta": {
