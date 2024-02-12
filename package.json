@@ -4,6 +4,7 @@
     "description": "Dataset dialogs",
     "group": "dialogs",
     "version": "1.0.6",
+	"minBSkyVersion":"8.93",
     "subscriptions": ["BASE (Free Forever)"],
     "main": "nav.js",
     "moduleMeta": {
