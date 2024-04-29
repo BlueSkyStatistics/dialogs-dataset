@@ -42,13 +42,11 @@ class reRun extends baseModal {
             modalType: "three",
             splitProcessing:false,
             RCode: `
-require(dplyr)
-{{selected.out | safe}} <- {{selected.mergetype | safe}}( {{selected.in1 | safe}} {{selected.id | safe}})
-BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
+{{selected.mapping | safe}}
 `,
         }
         var objects = {
-            dataset_var: { el: new srcDataSetList(config, { action: "move" }) },       
+            dataset_var: { el: new srcDataSetList(config, { no: "allDatasets", action: "move" }) },       
             datasetsFromOutput_BSky: {
                 el: new reRunDatasetList(config, {
                   action: "move",
@@ -60,9 +58,9 @@ BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
                 el: new semModelTermsDest(config, {
                   action: "move",
                   no: "mapping", label: localization.en.mapping, filter: "String|Numeric|Logical|Ordinal|Nominal|Scale", 
-                  extraction: "coVariances", 
-                  firstModelTermCtrl: "outputDatasets", 
-                  secondModelTermCtrl: "outputDatasets"
+                  extraction: "modelTerms", 
+                  firstModelTermCtrl: "allDatasets", 
+                  secondModelTermCtrl: "datasetsFromOutput_BSky"
                 })
               },
             
