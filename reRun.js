@@ -58,7 +58,7 @@ class reRun extends baseModal {
                 el: new semModelTermsDest(config, {
                   action: "move",
                   no: "mapping", label: localization.en.mapping, filter: "String|Numeric|Logical|Ordinal|Nominal|Scale", 
-                  extraction: "modelTerms", 
+                  extraction: "Enclosed", 
                   firstModelTermCtrl: "allDatasets", 
                   secondModelTermCtrl: "datasetsFromOutput_BSky"
                 })
