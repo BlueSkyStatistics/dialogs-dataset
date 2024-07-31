@@ -43,10 +43,11 @@ class reRun extends baseModal {
             splitProcessing:false,
             RCode: `
 {{selected.mapping | safe}}
+
 `,
         }
         var objects = {
-            dataset_var: { el: new srcDataSetList(config, { no: "allDatasets", action: "move" }) },       
+            dataset_var: { el: new srcDataSetListForRerun(config, { no: "allDatasets", action: "move" }) },       
             datasetsFromOutput_BSky: {
                 el: new reRunDatasetList(config, {
                   action: "move",
@@ -59,8 +60,8 @@ class reRun extends baseModal {
                   action: "move",
                   no: "mapping", label: localization.en.mapping, filter: "String|Numeric|Logical|Ordinal|Nominal|Scale", 
                   extraction: "Enclosed", 
-                  firstModelTermCtrl: "allDatasets", 
-                  secondModelTermCtrl: "datasetsFromOutput_BSky"
+                  firstModelTermCtrl: "datasetsFromOutput_BSky", 
+                  secondModelTermCtrl: "allDatasets"
                 })
               },
             
@@ -68,8 +69,8 @@ class reRun extends baseModal {
         }
         const content = {
             
-            left: [objects.dataset_var.el.content],
-            center: [objects.datasetsFromOutput_BSky.el.content],
+            left: [objects.datasetsFromOutput_BSky.el.content],
+            center: [objects.dataset_var.el.content],
             right: [objects.mapping.el.content],
             
             nav: {
