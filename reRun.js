@@ -1,8 +1,12 @@
 
 var localization = {
     en: {
-        title: "Stack Datasets",
-        navigation: "Stack",
+        title: "Rerun analysis on different datasets",
+        navigation: "Rerun analysis",
+        helpText:"Rerun or reproduce analysis in an output tab by swapping original dataset(s) with new dataset(s).\nFollow steps below.\n1. The output tab selected must contain the analysis to reproduce or rerun.\n2. The new dataset(s) you want to swap in must be open in the datagrid.\n3. Specify which new dataset will be swapped with the original (from the analysis in the active output tab)\n4. To do so, select the original dataset in the 1st list and the new dataset in the \n 2nd list and click the move button.\n5. Repeat step 4 to swap multiple datasets.\n6. Hit the execute button.\n",
+        allDatasets: "Datasets to swap",
+        datasetsFromOutput_BSky: "Original datasets",
+        mapping: "Mapped datasets",
         out: "Enter the name of the stacked dataset",
         in1: "Select 2 or more datasets",
         in2: "Select the 2nd dataset",
@@ -47,18 +51,32 @@ class reRun extends baseModal {
 `,
         }
         var objects = {
-            dataset_var: { el: new srcDataSetListForRerun(config, { no: "allDatasets", action: "move" }) },       
+            helpText: {
+				el: new preVar(config, {
+					no: "helpText",
+					label: localization.en.helpText, 
+					h:7
+				})
+			},
+            dataset_var: { el: new srcDataSetListForRerun(config, { no: "allDatasets",
+                label: localization.en.allDatasets,
+                action: "move" }) },       
             datasetsFromOutput_BSky: {
                 el: new reRunDatasetList(config, {
                   action: "move",
-                  no: "datasetsFromOutput_BSky", label: localization.en.outputDatasets
+                  label: localization.en.datasetsFromOutput_BSky,
+                  no: "datasetsFromOutput_BSky" 
                 })
               },
+            
+              
 
               mapping: {
                 el: new semModelTermsDest(config, {
                   action: "move",
-                  no: "mapping", label: localization.en.mapping, filter: "String|Numeric|Logical|Ordinal|Nominal|Scale", 
+                  no: "mapping", 
+                  label: localization.en.mapping, 
+                  filter: "String|Numeric|Logical|Ordinal|Nominal|Scale", 
                   extraction: "Enclosed", 
                   firstModelTermCtrl: "datasetsFromOutput_BSky", 
                   secondModelTermCtrl: "allDatasets"
@@ -68,10 +86,14 @@ class reRun extends baseModal {
             
         }
         const content = {
-            
+            head: [objects.helpText.el.content],
             left: [objects.datasetsFromOutput_BSky.el.content],
             center: [objects.dataset_var.el.content],
             right: [objects.mapping.el.content],
+            sizeleft:3,
+            sizecenter: 3,
+            sizeright:6,
+
             
             nav: {
                 name: localization.en.navigation,
