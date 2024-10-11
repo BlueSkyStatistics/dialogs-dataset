@@ -1,36 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Transpose, entire dataset",
-        navigation: "Entire Dataset",
-        transposedDataset: "Enter a name for the transposed dataset",
-        help: {
-            title: "Transpose Entire Dataset",
-            r_help: "help(t, package='base')",
-            body: `
-<b>Description</b></br>
-Invokes the transpose function in the base package that transposes the dataset. You have to specify the name of the dataset that stores the transposed dataset. The new transposed dataset is displayed in the grid.
-<br/>
-<b>Usage</b>
-<br/>
-<code> 
-Function called: base::t(x)
-</code> <br/>
-<b>Arguments</b><br/>
-<ul>
-<li>
-x: is a matrix or dataframe
-</li>
-</ul>
-<b>Value</b><br/>
-A matrix, with dim and dimnames constructed appropriately from those of x, and other attributes except names copied across.<br/>
-<b>Package</b></br>
-base<br/>
-<b>Help</b></br>
-help(t, package='base')
-`}
-    }
-}
+
 
 
 
@@ -43,10 +12,13 @@ help(t, package='base')
 
 
 class transposeEntireDataset extends baseModal {
+    static dialogId = 'transposeEntireDataset'
+    static t = baseModal.makeT(transposeEntireDataset.dialogId)
+
     constructor() {
         var config = {
-            id: "transposeEntireDataset",
-            label: localization.en.title,
+            id: transposeEntireDataset.dialogId,
+            label: transposeEntireDataset.t('title'),
             modalType: "one",
             splitProcessing:false,
             RCode: `
@@ -60,7 +32,7 @@ BSkyLoadRefresh("{{selected.transposedDataset | safe}}")
             transposedDataset: {
                 el: new input(config, {
                     no: 'transposedDataset',
-                    label: localization.en.transposedDataset,
+                    label: transposeEntireDataset.t('transposedDataset'),
                     placeholder: "",
                     extraction: "TextAsIs",
                     required: true,
@@ -72,13 +44,22 @@ BSkyLoadRefresh("{{selected.transposedDataset | safe}}")
         const content = {
             items: [objects.transposedDataset.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: transposeEntireDataset.t('navigation'),
                 icon: "icon-transpose-dataset",
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: transposeEntireDataset.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: transposeEntireDataset.t('help.body')
+        }
+;
     }
 }
-module.exports.item = new transposeEntireDataset().render()
+
+module.exports = {
+    render: () => new transposeEntireDataset().render()
+}

@@ -1,14 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Sort Dataset",
-        navigation: "Dataset",
-        label1: "Sort Options",
-        target: "Select the variable(s) you want to sort by",
-        selectctrl: "Specify a sort order, select asc for ascending, desc for descending.",
-        showResultsinOutput: "Show results in output window",
-    }
-}
+
 
 
 
@@ -19,10 +10,13 @@ var localization = {
 
 
 class sortDataset extends baseModal {
+    static dialogId = 'sortDataset'
+    static t = baseModal.makeT(sortDataset.dialogId)
+
     constructor() {
         var config = {
-            id: "sortDataset",
-            label: localization.en.title,
+            id: sortDataset.dialogId,
+            label: sortDataset.t('title'),
             modalType: "two",
             splitProcessing:false,
             RCode: `
@@ -39,11 +33,11 @@ BSkyLoadRefresh("{{dataset.name}}")
 `,
         }
         var objects = {
-            label1: { el: new labelVar(config, { label: localization.en.label1, h: 6 }) },
+            label1: { el: new labelVar(config, { label: sortDataset.t('label1'), h: 6 }) },
             content_var: { el: new srcVariableList(config, {action: "move"}) },
             target: {
                 el: new dstVariableList(config, {
-                    label: localization.en.target,
+                    label: sortDataset.t('target'),
                     no: "target",
                     filter: "Numeric|Scale",
                     extraction: "NoPrefix|UseComma",
@@ -53,7 +47,7 @@ BSkyLoadRefresh("{{dataset.name}}")
             selectctrl: {
                 el: new comboBox(config, {
                     no: 'selectctrl',
-                    label: localization.en.selectctrl,
+                    label: sortDataset.t('selectctrl'),
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     required: true,
@@ -63,7 +57,7 @@ BSkyLoadRefresh("{{dataset.name}}")
             },
             showResultsinOutput: {
                 el: new checkbox(config, {
-                    label: localization.en.showResultsinOutput,
+                    label: sortDataset.t('showResultsinOutput'),
                     no: "showResultsinOutput",
                     bs_type: "valuebox",
                     extraction: "BooleanValue",
@@ -76,7 +70,7 @@ BSkyLoadRefresh("{{dataset.name}}")
             left: [objects.label1.el.content, objects.content_var.el.content],
             right: [objects.selectctrl.el.content, objects.target.el.content, objects.showResultsinOutput.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: sortDataset.t('navigation'),
                 icon: "icon-sort_vertical",
                 modal: config.id
             }
@@ -84,4 +78,7 @@ BSkyLoadRefresh("{{dataset.name}}")
         super(config, objects, content);
     }
 }
-module.exports.item = new sortDataset().render()
+
+module.exports = {
+    render: () => new sortDataset().render()
+}

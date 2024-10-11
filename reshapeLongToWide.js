@@ -1,65 +1,5 @@
 
-var localization = {
-  en: {
-    toplabel: "By default all dataset columns except the selected repeated factor and value variables will be used to identify each observation. To overide, see below",
-    id_cols:"Optional: By default all dataset columns except the selected repeated factor and value variables will be used to identify each observation. To overide, select and move variables", 
-    title: "Reshape, long to wide",
-    navigation: "Wider",
-    labelTop: "When a single repeated factor and value variable is specified, new variable names are prefixed with the name of the repeated factor. In all other cases, they are prefixed by the name of the value variable",
-    label0: "You can choose to save the results in a new dataset or overwrite the existing dataset",
-    label1: "Options",
-    New: "Save results to a new dataset",
-    newdatasetname: "Enter a dataset name",
-    Existing: "Overwrite existing dataset",
-    subsetvars: "Enter variable name(s) of the repeated factor(s), for e.g. Time",
-    dontReshape: "Enter variable name(s) for the repeated value(s) e.g. Counts",
-    names_sort: "Order column names alphabetically",
-    appearence_sort: "Order column names by appearance",
-    names_sep: "Optional separator to use when joining specified variable names to form new variable names",
-    label2: "Sort Options",
-    help: {
-      title: "Reshape (long to wide)",
-      r_help: "help(pivot_wider, package=tidyr)",
-      body: `
-           <b>Description</b></br>
-See video at <a href="https://youtu.be/ypLXqmFp3jY">Reshape long to wide</a></br>
-Takes a wide dataset and converts it to a long dataset by converting (widening) columns. Pivot_wider "lengthens" data, increasing the number of rows and decreasing the number of columns. You use pivot_wider when you have variables/columns whose values need to be in rows. 
-<br/>
-NOTE: When one repeated factor is specified, new variable names are prefixed with the name of the repeated factor. When multiple repeated factors are specified, they are prefixed by the name of the value variable</br>
-<b>Usage</b>
-<br/>
-<code> 
-dataset %>% 
-	pivot_wider(names_from =name, values_from=value, names_sort= TRUE)
-</code> <br/>
-<b>Arguments</b><br/>
-<ul>
-<li>
-dataset: A dataframe/tibble
-</li>
-<li>
-names_from: the name of the output column 
-</li>
-<li>
-values_from: the column  to get the cell values from 
-</li>
-<li>
-names_sort: Should the column names be sorted? If FALSE, the default, column names are ordered by first appearance.
-</li>
-<li>
-names_sep: Optional separator to use when joining specified variable names to form new variable names
-</li>
-<li>
-<b>Value</b><br/>
-Returns the reshaped dataset
-<br/>
-<b>Package</b></br>
-tidyr
-<b>Help</b></br>
-help(pivot_wider)
-`}
-  }
-}
+
 
 
 
@@ -69,10 +9,13 @@ help(pivot_wider)
 
 
 class reshapeLongToWide extends baseModal {
+    static dialogId = 'reshapeLongToWide'
+    static t = baseModal.makeT(reshapeLongToWide.dialogId)
+
   constructor() {
     var config = {
-      id: "reshapeLongToWide",
-      label: localization.en.title,
+            id: reshapeLongToWide.dialogId,
+      label: reshapeLongToWide.t('title'),
       modalType: "two",
       splitProcessing:false,
       RCode: `
@@ -83,13 +26,13 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
     }
     var objects = {
       content_var: { el: new srcVariableList(config, {action: "move", scroll:true}) },
-      toplabel: { el: new labelVar(config, { label: localization.en.toplabel, h: 6 }) },
-      label1: { el: new labelVar(config, { label: localization.en.label1, h: 5 }) },
-      New: { el: new radioButton(config, { label: localization.en.New, no: "rd", increment: "New", required: true, dependant_objects: ['newdatasetname'], value: "", state: "checked", extraction: "ValueAsIs", dependant_objects: ['newdatasetname'] }) },
+      toplabel: { el: new labelVar(config, { label: reshapeLongToWide.t('toplabel'), h: 6 }) },
+      label1: { el: new labelVar(config, { label: reshapeLongToWide.t('label1'), h: 5 }) },
+      New: { el: new radioButton(config, { label: reshapeLongToWide.t('New'), no: "rd", increment: "New", required: true, dependant_objects: ['newdatasetname'], value: "", state: "checked", extraction: "ValueAsIs", dependant_objects: ['newdatasetname'] }) },
       newdatasetname: {
         el: new input(config, {
           no: 'newdatasetname',
-          label: localization.en.newdatasetname,
+          label: reshapeLongToWide.t('newdatasetname'),
           placeholder: "",
           extraction: "TextAsIs",
           ml: 4,
@@ -97,10 +40,10 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
           overwrite: "dataset",
         })
       },
-      Existing: { el: new radioButton(config, { label: localization.en.Existing, no: "rd", increment: "Existing", style: "mb-2", value: "TRUE", syntax: "{{dataset.name}}", state: "", extraction: "ValueAsIs" }) },
+      Existing: { el: new radioButton(config, { label: reshapeLongToWide.t('Existing'), no: "rd", increment: "Existing", style: "mb-2", value: "TRUE", syntax: "{{dataset.name}}", state: "", extraction: "ValueAsIs" }) },
       id_cols: {
         el: new dstVariableList(config, {
-          label: localization.en.id_cols,
+          label: reshapeLongToWide.t('id_cols'),
           no: "id_cols",
           filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
           extraction: "NoPrefix|UseComma",
@@ -108,7 +51,7 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
       },
       subsetvars: {
         el: new dstVariableList(config, {
-          label: localization.en.subsetvars,
+          label: reshapeLongToWide.t('subsetvars'),
           no: "subsetvars",
           required:true,
           filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
@@ -117,7 +60,7 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
       },
       dontReshape: {
         el: new dstVariableList(config, {
-          label: localization.en.dontReshape,
+          label: reshapeLongToWide.t('dontReshape'),
           no: "dontReshape",
           required: true, 
           filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
@@ -126,19 +69,19 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
       },
       variablesToKeep: {
         el: new dstVariableList(config, {
-          label: localization.en.dontReshape,
+          label: reshapeLongToWide.t('dontReshape'),
           no: "dontReshape",
           filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
           extraction: "NoPrefix|UseComma",
         }), r: ['{{dontReshape | safe}}']
       },
-      label2: { el: new labelVar(config, { label: localization.en.label2, h: 5 }) },
-      names_sort: { el: new radioButton(config, { label: localization.en.names_sort, no: "grp1", increment: "names_sort", value: "TRUE", state: "checked", extraction: "ValueAsIs" }) },
-      appearence_sort: { el: new radioButton(config, { label: localization.en.appearence_sort, no: "grp1", increment: "appearence_sort", value: "FALSE", state: "", extraction: "ValueAsIs" }) },
+      label2: { el: new labelVar(config, { label: reshapeLongToWide.t('label2'), h: 5 }) },
+      names_sort: { el: new radioButton(config, { label: reshapeLongToWide.t('names_sort'), no: "grp1", increment: "names_sort", value: "TRUE", state: "checked", extraction: "ValueAsIs" }) },
+      appearence_sort: { el: new radioButton(config, { label: reshapeLongToWide.t('appearence_sort'), no: "grp1", increment: "appearence_sort", value: "FALSE", state: "", extraction: "ValueAsIs" }) },
       names_sep: {
         el: new input(config, {
           no: 'names_sep',
-          label: localization.en.names_sep,
+          label: reshapeLongToWide.t('names_sep'),
           placeholder: "",
           allow_spaces:true,
           extraction: "TextAsIs",
@@ -151,13 +94,19 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
       left: [objects.content_var.el.content],
       right: [objects.label1.el.content, objects.New.el.content, objects.newdatasetname.el.content, objects.Existing.el.content, objects.subsetvars.el.content, objects.dontReshape.el.content, objects.id_cols.el.content,objects.label2.el.content, objects.names_sort.el.content, objects.appearence_sort.el.content, objects.names_sep.el.content],
       nav: {
-        name: localization.en.navigation,
+        name: reshapeLongToWide.t('navigation'),
         icon: "icon-wider",
         modal: config.id
       }
     }
     super(config, objects, content);
-    this.help = localization.en.help;
+    
+        this.help = {
+            title: reshapeLongToWide.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: reshapeLongToWide.t('help.body')
+        }
+;
   }
   prepareExecution(instance) {
     var res = [];
@@ -216,4 +165,7 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
     return res;
   }
 }
-module.exports.item = new reshapeLongToWide().render()
+
+module.exports = {
+    render: () => new reshapeLongToWide().render()
+}

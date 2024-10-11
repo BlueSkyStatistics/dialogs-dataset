@@ -12,23 +12,15 @@
 
 
 
-var localization = {
-    en: {
-        title: "Sort Dataset",
-        navigation: "Sort",
-        ctrlName: "Sort Options",
-        upperdesc: "Specify a sort order, select asc for ascending, desc for descending",
-        lowerdescdesc: "Drag and drop the variables you want to sort",
-        label1: "**To sort a variable in descending order, you must select desc from the sort options and move the variable you want to sort by.",
-        label2: "ONLY WHEN YOU SEE DESC(VARIABLE NAME) IN THE LIST IS THE VARIABLE SORTED IN DESCENDING ORDER",
-        showResultsinOutput: "Show results in output",
-    }
-}
+
 class sortDatasetsNew extends baseModal {
+    static dialogId = 'sortDatasetsNew'
+    static t = baseModal.makeT(sortDatasetsNew.dialogId)
+
     constructor() {
         var config = {
-            id: "sortDatasetsNew",
-            label: localization.en.title,
+            id: sortDatasetsNew.dialogId,
+            label: sortDatasetsNew.t('title'),
             modalType: "two",
             splitProcessing:false,
             RCode: `
@@ -47,7 +39,7 @@ attributes({{dataset.name}}) <- bskyattr
             sortO: {
                 el: new wrapControl(config, {
                     no: "sortOrder",
-                    label: localization.en.ctrlName,
+                    label: sortDatasetsNew.t('ctrlName'),
                     options: [
                         {
                             name: "asc",
@@ -61,13 +53,13 @@ attributes({{dataset.name}}) <- bskyattr
                     filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
                     required: true,
                     extraction: "NoPrefix|UseComma",
-                    upperdesc: localization.en.upperdesc,
-                    lowerdescdesc: localization.en.lowerdescdesc,
+                    upperdesc: sortDatasetsNew.t('upperdesc'),
+                    lowerdescdesc: sortDatasetsNew.t('lowerdescdesc'),
                 })
             },
             showResultsinOutput: {
                 el: new checkbox(config, {
-                    label: localization.en.showResultsinOutput,
+                    label: sortDatasetsNew.t('showResultsinOutput'),
                     no: "showResultsinOutput",
                     bs_type: "valuebox",
                     extraction: "BooleanValue",
@@ -75,8 +67,8 @@ attributes({{dataset.name}}) <- bskyattr
                     false_value: "FALSE",
                 })
             },
-            label1: { el: new labelVar(config, { label: localization.en.label1, h: 6 }) },
-            label2: { el: new labelVar(config, { label: localization.en.label2, h: 6 }) },
+            label1: { el: new labelVar(config, { label: sortDatasetsNew.t('label1'), h: 6 }) },
+            label2: { el: new labelVar(config, { label: sortDatasetsNew.t('label2'), h: 6 }) },
         }
         const content = {
             head: [],
@@ -84,7 +76,7 @@ attributes({{dataset.name}}) <- bskyattr
             right: [objects.sortO.el.content, objects.label1.el.content, objects.label2.el.content, objects.showResultsinOutput.el.content],
             bottom: [],
             nav: {
-                name: localization.en.navigation,
+                name: sortDatasetsNew.t('navigation'),
                 icon: "icon-sort_vertical",
                 modal: config.id
             },
@@ -94,4 +86,7 @@ attributes({{dataset.name}}) <- bskyattr
         super(config, objects, content);
     }
 }
-module.exports.item = new sortDatasetsNew().render()
+
+module.exports = {
+    render: () => new sortDatasetsNew().render()
+}

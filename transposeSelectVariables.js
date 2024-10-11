@@ -1,37 +1,5 @@
 
-var localization = {
-    en: {
-        title: "Transpose Dataset, select variables",
-        navigation: "Select Variables",
-        transposedDataset: "Enter a name for the transposed dataset",
-        destination: "Select variables to transpose",
-        help: {
-            title: "Transpose Selected Variables",
-            r_help: "help(t, package='base')",
-            body: `
-<b>Description</b></br>
-Invokes the transpose function in the base package that transposes the variables selected and stores the results in the new dataset. You have to specify the name of the dataset that stores the transposed dataset. The new transposed dataset is displayed in the grid.
-<br/>
-<b>Usage</b>
-<br/>
-<code> 
-base::t(x)
-</code> <br/>
-<b>Arguments</b><br/>
-<ul>
-<li>
-x: is a matrix or dataframe
-</li>
-</ul>
-<b>Value</b><br/>
-A matrix, with dim and dimnames constructed appropriately from those of x, and other attributes except names copied across.<br/>
-<b>Package</b></br>
-base<br/>
-<b>Help</b></br>
-help(t, package='base')
-`}
-    }
-}
+
 
 
 
@@ -44,10 +12,13 @@ help(t, package='base')
 
 
 class transposeSelectVariables extends baseModal {
+    static dialogId = 'transposeSelectVariables'
+    static t = baseModal.makeT(transposeSelectVariables.dialogId)
+
     constructor() {
         var config = {
-            id: "transposeSelectVariables",
-            label: localization.en.title,
+            id: transposeSelectVariables.dialogId,
+            label: transposeSelectVariables.t('title'),
             modalType: "two",
             splitProcessing:false,
             RCode: `
@@ -61,7 +32,7 @@ BSkyLoadRefresh("{{selected.transposedDataset | safe}}")
             transposedDataset: {
                 el: new input(config, {
                     no: 'transposedDataset',
-                    label: localization.en.transposedDataset,
+                    label: transposeSelectVariables.t('transposedDataset'),
                     placeholder: "",
                     extraction: "TextAsIs",
                     required: true,
@@ -72,7 +43,7 @@ BSkyLoadRefresh("{{selected.transposedDataset | safe}}")
             content_var: { el: new srcVariableList(config, {action: "move"}) },
             destination: {
                 el: new dstVariableList(config, {
-                    label: localization.en.destination,
+                    label: transposeSelectVariables.t('destination'),
                     no: "destination",
                     filter: "String|Numeric|Date|Logical|Ordinal|Nominal|Scale",
                     extraction: "NoPrefix|UseComma|Enclosed",
@@ -85,13 +56,22 @@ BSkyLoadRefresh("{{selected.transposedDataset | safe}}")
             left: [objects.content_var.el.content],
             right: [objects.destination.el.content],
             nav: {
-                name: localization.en.navigation,
+                name: transposeSelectVariables.t('navigation'),
                 icon: "icon-transpose-variables",
                 modal: config.id
             }
         }
         super(config, objects, content);
-        this.help = localization.en.help;
+        
+        this.help = {
+            title: transposeSelectVariables.t('help.title'),
+            r_help: "help(data,package='utils')",
+            body: transposeSelectVariables.t('help.body')
+        }
+;
     }
 }
-module.exports.item = new transposeSelectVariables().render()
+
+module.exports = {
+    render: () => new transposeSelectVariables().render()
+}
