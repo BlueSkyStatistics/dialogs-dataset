@@ -77,7 +77,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
             fulljoin: {
                 el: new radioButton(config, { label: mergeDatasets.t('fulljoin'), no: "mergetype", increment: "fulljoin", value: "full_join", state: "", extraction: "ValueAsIs" })
             },
-            id: {
+            /*id: {
                 el: new input(config, {
                     no: 'id',
                     label: mergeDatasets.t('id'),
@@ -87,7 +87,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     type: "character",
                     value: "",
                 }),
-            },
+            },*/
             label2: { el: new labelVar(config, { label: mergeDatasets.t('label2'), h: 5, style: "mt-2", }) },
             by: {
                 el: new input(config, {
