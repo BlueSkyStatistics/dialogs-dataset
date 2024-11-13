@@ -102,7 +102,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
             select12: {
                 el: new selectDataset(config, {
                     no: 'select12',
-                    label: localization.en.selectAPackage,
+                    /*label: localization.en.selectAPackage,*/
                     multiple: false,
                     extraction: "NoPrefix|UseComma",
                     options: [],

@@ -136,7 +136,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
             fulljoin: {
                 el: new radioButton(config, { label: localization.en.fulljoin, no: "mergetype", increment: "fulljoin", value: "full_join", state: "", extraction: "ValueAsIs" })
             },
-            id: {
+            /*id: {
                 el: new input(config, {
                     no: 'id',
                     label: localization.en.id,
@@ -146,7 +146,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     type: "character",
                     value: "",
                 }),
-            },
+            },*/
             label2: { el: new labelVar(config, { label: localization.en.label2, h: 5, style: "mt-2", }) },
             by: {
                 el: new input(config, {
