@@ -212,7 +212,7 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
       }
     let cmd = instance.dialog.renderR(code_vars)
     cmd = removenewline(cmd);
-    res.push({ cmd: cmd, cgid: newCommandGroup() })
+    res.push({ cmd: cmd, cgid: newCommandGroup(`${instance.config.id}`, `${instance.config.label}`), oriR: instance.config.RCode, code_vars: code_vars })
     return res;
   }
 }
