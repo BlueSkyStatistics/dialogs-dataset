@@ -1,11 +1,13 @@
-const nav = {
-    "name": "Datasets",
+let t = getT('menutoolbar')
+
+const nav = () => ({
+    "name": t('datasets_top_level_title'),// {ns: 'menutoolbar'}),
     "tab": "Datasets",
     "buttons": [
         "./aggregate.js",
         "./expandDataByWeights",
         {
-            "name": "Group By",
+            "name": t('datasets_group_by'),// {ns: 'menutoolbar'}),
             "icon": "icon-group",
             "children": [
                 "./removeSplit",
@@ -14,13 +16,13 @@ const nav = {
             ]
         },
         {
-            "name": "Matching",
+            "name": t('datasets_Matching'),// {ns: 'menutoolbar'}),
             "icon": "icon-paired",
             "children": [
                ]
         },        
         {
-            "name": "Merge",
+            "name": t('datasets_Merge'),//{ns: 'menutoolbar'}),
             "icon": "icon-merge_right",
             "children": [
                 "./mergeDatasetsNew",
@@ -30,7 +32,7 @@ const nav = {
                ]
         },
         {
-            "name": "ReShape",
+            "name": t('datasets_ReShape'),// {ns: 'menutoolbar'}),
             "icon": "icon-reshape",
             "children": [
                 "./reshapeWideToLong",
@@ -39,7 +41,7 @@ const nav = {
             ]
         },
         {
-            "name": "Sampling",
+            "name": t('datasets_Sampling'),// {ns: 'menutoolbar'}),
             "icon": "icon-sample",
             "children": [
                 "./randomSplit",
@@ -51,7 +53,7 @@ const nav = {
             ]
         },
         {
-            "name": "Sort",
+            "name": t('datasets_Sort'),// {ns: 'menutoolbar'}),
             "icon": "icon-sort_vertical",
             "children": [
                 "./reorderDatasetVariables",
@@ -59,14 +61,14 @@ const nav = {
             ]
         },
         {
-            "name": "Subset",
+            "name": t('datasets_Subset'),// {ns: 'menutoolbar'}),
             "icon": "icon-funnel",
             "children": [
                 "./subsetDataset"
                ]
         },  		
         {
-            "name": "Transpose",
+            "name": t('datasets_Transpose'),// {ns: 'menutoolbar'}),
             "icon": "icon-transpose",
             "children": [
                 "./transposeEntireDataset",
@@ -75,7 +77,10 @@ const nav = {
             ]
         }
     ]
-}
+})
 
-module.exports.nav = nav
+module.exports = {
+    nav: nav(),
+    render: () => nav()
+}
 
