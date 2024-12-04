@@ -132,7 +132,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     required: true,
                 }),
             },    
-            label1: { el: new labelVar(config, { label: localization.en.label1, h: 5, style: "mt-1", }) },
+            label1: { el: new labelVar(config, { no: 'label1',  label: localization.en.label1, h: 5, style: "mt-1", }) },
             leftjoin: {
                 el: new radioButton(config, { label: localization.en.leftjoin, no: "mergetype", increment: "leftjoin", value: "dplyr::left_join", state: "checked", extraction: "ValueAsIs" })
             },
