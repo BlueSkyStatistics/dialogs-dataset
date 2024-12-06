@@ -65,7 +65,7 @@ BSkyLoadRefreshDataframe("{{selected.out | safe}}")
                     required: true,
                 }),
             },    
-            label1: { el: new labelVar(config, { label: mergeDatasetsNew.t('label1'), h: 5, style: "mt-1", }) },
+            label1: { el: new labelVar(config, { no: 'label1', label: mergeDatasetsNew.t('label1'), h: 5, style: "mt-1", }) },
             leftjoin: {
                 el: new radioButton(config, { label: mergeDatasetsNew.t('leftjoin'), no: "mergetype", increment: "leftjoin", value: "dplyr::left_join", state: "checked", extraction: "ValueAsIs" })
             },
