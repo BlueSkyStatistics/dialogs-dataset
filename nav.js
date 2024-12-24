@@ -27,8 +27,7 @@ const nav = () => ({
             "children": [
                 "./mergeDatasetsNew",
                 "./mergeDatasets",
-                "./stackDatasets",
-                "./reRun"
+                "./stackDatasets"
                ]
         },
         {
