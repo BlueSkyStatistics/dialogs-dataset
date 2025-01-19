@@ -75,6 +75,7 @@ class reRun extends baseModal {
                 el: new semModelTermsDest(config, {
                   action: "move",
                   no: "mapping", 
+                  mapSameDataset:true,
                   label: localization.en.mapping, 
                   filter: "String|Numeric|Logical|Ordinal|Nominal|Scale", 
                   extraction: "Enclosed", 
