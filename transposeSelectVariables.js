@@ -65,7 +65,7 @@ BSkyLoadRefresh("{{selected.transposedDataset | safe}}")
         
         this.help = {
             title: transposeSelectVariables.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: transposeSelectVariables.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: transposeSelectVariables.t('help.body')
         }
 ;

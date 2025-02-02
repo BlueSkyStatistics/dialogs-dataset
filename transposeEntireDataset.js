@@ -53,7 +53,7 @@ BSkyLoadRefresh("{{selected.transposedDataset | safe}}")
         
         this.help = {
             title: transposeEntireDataset.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: transposeEntireDataset.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: transposeEntireDataset.t('help.body')
         }
 ;

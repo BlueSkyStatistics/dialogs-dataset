@@ -129,7 +129,7 @@ BSkyLoadRefresh('{{selected.datasetname | safe}}')
         
         this.help = {
             title: aggregate.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: aggregate.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: aggregate.t('help.body')
         }
 ;

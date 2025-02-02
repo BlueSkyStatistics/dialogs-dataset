@@ -97,7 +97,7 @@ BSkyLoadRefresh("{{selected.testdataset | safe}}")
         
         this.help = {
             title: randomSplit.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: randomSplit.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: randomSplit.t('help.body')
         }
 ;

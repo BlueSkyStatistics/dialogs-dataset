@@ -146,7 +146,7 @@ BSkyLoadRefresh("{{selected.newdatasetname | safe}}{{selected.rd | safe}}",load.
     
         this.help = {
             title: reshapeWideToLong.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: reshapeWideToLong.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: reshapeWideToLong.t('help.body')
         }
 ;

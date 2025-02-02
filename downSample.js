@@ -68,7 +68,7 @@ BSkyLoadRefresh("{{selected.downsample | safe}}")
         
         this.help = {
             title: downSample.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: downSample.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: downSample.t('help.body')
         }
 ;

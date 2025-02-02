@@ -83,7 +83,7 @@ BSkyLoadRefreshDataframe( "{{selected.out | safe}}" )
         
         this.help = {
             title: stackDatasets.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: stackDatasets.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: stackDatasets.t('help.body')
         }
 ;

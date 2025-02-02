@@ -47,7 +47,7 @@ BSkySetDataFrameSplit(c({{selected.SelectedVars | safe}}),'{{dataset.name}}')
         
         this.help = {
             title: setSplit.t('help.title'),
-            r_help: "help(data,package='utils')",
+            r_help: setSplit.t('help.r_help'),  //r_help: "help(data,package='utils')",
             body: setSplit.t('help.body')
         }
 ;
