@@ -1,2 +1,2 @@
 # datasetDialogs
-BlueSky Statistics Dataset dialogs
+BioStat Prime Dataset dialogs
