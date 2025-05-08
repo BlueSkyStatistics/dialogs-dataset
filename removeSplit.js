@@ -37,6 +37,12 @@ BSkySetDataFrameSplit(c(),'{{dataset.name}}')
             }
         }
         super(config, objects, content);
+		
+        this.help = {
+            title: removeSplit.t('help.title'),
+            r_help: removeSplit.t('help.r_help'),  //r_help: "help(data,package='utils')",
+            body: removeSplit.t('help.body')
+        }		
     }
 }
 
