@@ -36,7 +36,7 @@ require(dplyr)
  #Save the attributes of the dataset
 bskyattr <- attributes({{dataset.name}} )
 #Perform the sort
-{{dataset.name}}  <-{{if (options.selected.selectctrl == "asc")}}{{dataset.name}} %>% arrange( {{selected.target | safe}}  )  {{#else}}{{dataset.name}} %>% arrange( desc({{selected.target | safe}} ) ){{/if}}
+{{dataset.name}}  <-{{if (options.selected.selectctrl == "asc")}}{{dataset.name}} %>% dplyr::arrange( {{selected.target | safe}}  )  {{#else}}{{dataset.name}} %>% dplyr::arrange( desc({{selected.target | safe}} ) ){{/if}}
 #Restore the attributes
 attributes({{dataset.name}} ) <- bskyattr
 #Refresh the dataset in the data grid
