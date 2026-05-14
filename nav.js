@@ -1,20 +1,10 @@
-/**
-  * This file is protected by copyright (c) 2023-2025 by BlueSky Statistics, LLC.
-  * All rights reserved. The copy, modification, or distribution of this file is not
-  * allowed without the prior written permission from BlueSky Statistics, LLC.
- */
-
-const {getT} = global.requireFromRoot("localization");
-let t = getT('menutoolbar')
-
-const nav = () => ({
-    "name": t('datasets_top_level_title'),// {ns: 'menutoolbar'}),
-    "tab": "Datasets",
+const nav = {
+    "id": "menu-datasets",
     "buttons": [
         "./aggregate.js",
         "./expandDataByWeights",
         {
-            "name": t('datasets_group_by'),// {ns: 'menutoolbar'}),
+            "id": "menu-datasets-group-by",
             "icon": "icon-group",
             "children": [
                 "./removeSplit",
@@ -23,13 +13,13 @@ const nav = () => ({
             ]
         },
         {
-            "name": t('datasets_Matching'),// {ns: 'menutoolbar'}),
+            "id": "menu-datasets-matching",
             "icon": "icon-paired",
             "children": [
                ]
         },        
         {
-            "name": t('datasets_Merge'),//{ns: 'menutoolbar'}),
+            "id": "menu-datasets-merge",
             "icon": "icon-merge_right",
             "children": [
                 "./mergeDatasetsNew",
@@ -38,7 +28,7 @@ const nav = () => ({
                ]
         },
         {
-            "name": t('datasets_ReShape'),// {ns: 'menutoolbar'}),
+            "id": "menu-datasets-reshape",
             "icon": "icon-reshape",
             "children": [
                 "./reshapeWideToLong",
@@ -47,7 +37,7 @@ const nav = () => ({
             ]
         },
         {
-            "name": t('datasets_Sampling'),// {ns: 'menutoolbar'}),
+            "id": "menu-datasets-sampling",
             "icon": "icon-sample",
             "children": [
                 "./randomSplit",
@@ -59,7 +49,7 @@ const nav = () => ({
             ]
         },
         {
-            "name": t('datasets_Sort'),// {ns: 'menutoolbar'}),
+            "id": "menu-datasets-sort",
             "icon": "icon-sort_vertical",
             "children": [
                 "./reorderDatasetVariables",
@@ -67,14 +57,14 @@ const nav = () => ({
             ]
         },
         {
-            "name": t('datasets_Subset'),// {ns: 'menutoolbar'}),
+            "id": "menu-datasets-subset",
             "icon": "icon-funnel",
             "children": [
                 "./subsetDataset"
                ]
         },  		
         {
-            "name": t('datasets_Transpose'),// {ns: 'menutoolbar'}),
+            "id": "menu-datasets-transpose",
             "icon": "icon-transpose",
             "children": [
                 "./transposeEntireDataset",
@@ -83,10 +73,7 @@ const nav = () => ({
             ]
         }
     ]
-})
-
-module.exports = {
-    nav: nav(),
-    render: () => nav()
 }
+
+module.exports.nav = nav
 
