@@ -16,10 +16,8 @@ class downSample extends baseModal {
             modalType: "two",
             splitProcessing:false,
             RCode: `
-require(caret)
-require(klaR)
 set.seed({{selected.seed | safe}})
-{{selected.downsample | safe}} <-downSample( x={{dataset.name}}[-BSkygetIndexesOfCols(c("{{selected.dependent | safe}}"), c("{{dataset.name}}"))], y={{dataset.name}}\${{selected.dependent | safe}}, list =FALSE, yname =c("{{selected.dependent | safe}}"))
+{{selected.downsample | safe}} <- BSkyDownSample(data = {{dataset.name}}, dependent = "{{selected.dependent | safe}}")
 BSkyLoadRefresh("{{selected.downsample | safe}}")
 `
         }
