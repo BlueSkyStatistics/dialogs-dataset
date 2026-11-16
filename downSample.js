@@ -17,42 +17,36 @@ var localization = {
             r_help: "help(createDataPartition, package=\"caret\")",
             body: `
 <b>Description</b></br>
-Down-Sampling Imbalanced Data. DownSample will randomly sample a data set so that all classes have the same frequency as the minority class
+Down-Sampling Imbalanced Data. Randomly keeps, from each class of the selected variable, as many rows as the smallest class has, so that all classes have the same frequency as the minority class. All rows of the smallest class are kept.
 <br/>
 <b>Usage</b>
 <br/>
 <code> 
-downSample(x, y, list = FALSE, yname = "Class")
+BSkyDownSample(data, dependent)
 </code> <br/>
 <b>Arguments</b><br/>
 <ul>
 <li>
-x: a matrix or data frame of predictor variables
+data: a data frame
 </li>
 <li>
-y: a factor variable with the class memberships
-</li>
-<li>
-list: should the function return list(x, y) or bind x and y together? If TRUE, the output will be coerced to a data frame.
-</li>
-<li>
-yname: if list = FALSE, a label for the class column
+dependent: the name of the variable whose classes (levels or distinct values) are balanced, as a character string
 </li>
 </ul>
 <b>Details</b></br>
-Simple random sampling is used to down-sample for the majority class(es). Note that the minority class data are left intact and that the samples will be re-ordered in the down-sampled version.</br>
-For up-sampling, all the original data are left intact and additional samples are added to the minority classes with replacement.</br>
+Simple random sampling is used to down-sample the majority class(es). Rows where the selected variable is missing (NA) are left out, with a warning. Factor levels that no row has are ignored. Set seed makes the result reproducible.</br>
 <b>Value</b><br/>
-Either a data frame or a list with elements x and y.</br>
+A data frame with the same columns, in the same order, as the original dataset. Rows keep their original order.</br>
 <b>Examples</b></br>
-## A ridiculous example...
-data(oil)</br>
-table(oilType)</br>
-downSample(fattyAcids, oilType)</br>
+<code> 
+set.seed(12345)</br>
+DownSample <- BSkyDownSample(data = Dataset2, dependent = \"gender\")</br>
+table(DownSample$gender)</br>
+</code> <br/>
 <b>Package</b></br>
-caret</br>
+BlueSky</br>
 <b>Help</b></br>
-help(downSample, package ='caret')
+help(BSkyDownSample, package ='BlueSky')
 `}
     }
 }
